@@ -4,7 +4,7 @@
     "$className": "DataModel",
     "ServerScriptService": {
       "Test": {
-        "$path": "test.server.lua",
+        "$path": "test.server.luau",
         "Rx": {
           "$path": "default.project.json"
         }
