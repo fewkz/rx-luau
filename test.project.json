@@ -1,0 +1,14 @@
+{
+  "name": "Test RxLuau",
+  "tree": {
+    "$className": "DataModel",
+    "ServerScriptService": {
+      "Test": {
+        "$path": "test.server.lua",
+        "Rx": {
+          "$path": "default.project.json"
+        }
+      }
+    }
+  }
+}
