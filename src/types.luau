@@ -1,4 +1,3 @@
---!strict
 export type Observer<T> = {
 	next: (T) -> (),
 	error: () -> ()?,

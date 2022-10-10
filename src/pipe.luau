@@ -1,4 +1,3 @@
---!strict
 local types = require(script.Parent.types)
 local newObservable = require(script.Parent.newObservable)
 
