@@ -18,7 +18,7 @@ type Pipe =
 local pipe = function(observable: Observable<any>, ...: Operator<any, any>)
 	local operators = { ... }
 	return newObservable(function(subscription)
-		observable.subscribe({
+		return observable.subscribe({
 			next = function(v)
 				for _, operator in operators do
 					v = operator(v)

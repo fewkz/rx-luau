@@ -7,7 +7,7 @@ export type Observer<T> = {
 export type ObserverLike<T> = Observer<T> | ((T) -> ())
 
 export type Observable<T> = {
-	subscribe: (ObserverLike<T>) -> (),
+	subscribe: (ObserverLike<T>) -> (() -> ()),
 }
 
 export type Operator<I, O> = (I) -> O
