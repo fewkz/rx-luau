@@ -1,5 +1,4 @@
 local types = require("src/types")
-local newObservable = require("src/newObservable")
 
 type Observable<T> = types.Observable<T>
 type Operator<I, O> = types.Operator<I, O>
@@ -17,18 +16,10 @@ type Pipe =
 
 local pipe = function(observable: Observable<any>, ...: Operator<any, any>)
 	local operators = { ... }
-	return newObservable(function(subscription)
-		return observable.subscribe({
-			next = function(v)
-				for _, operator in operators do
-					v = operator(v)
-				end
-				subscription.next(v)
-			end,
-			error = subscription.error,
-			complete = subscription.complete,
-		})
-	end)
+	for _, operator in operators do
+		observable = operator.operate(observable)
+	end
+	return observable
 end
 
-return (pipe :: any) :: Pipe -- I don't know why it doesn't let me type it as Pipe
+return (pipe :: any) :: Pipe -- Doesn't let me type it as Pipe directly for some reason.
