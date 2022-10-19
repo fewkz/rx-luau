@@ -121,6 +121,25 @@ test("Piping an observable to filter", function()
 	assert(values[1] == 2, "Expected 2, got " .. values[1])
 end)
 
+test("Piping an observable to map and filter", function()
+	local observable = newObservable(function(subscriber)
+		subscriber.next(1)
+		subscriber.next(2)
+		subscriber.next(3)
+		return
+	end)
+	local values = {}
+	pipe(observable, filter(function(value: number)
+		return value % 2 == 0
+	end), map(function(value: number)
+		return value * 2
+	end)).subscribeNext(function(value)
+		table.insert(values, value)
+	end)
+	assert(#values == 1, "Expected 1 value, got " .. #values)
+	assert(values[1] == 4, "Expected 4, got " .. values[1])
+end)
+
 local red = "\27[31m"
 local green = "\27[32m"
 local bold = "\27[1m"
