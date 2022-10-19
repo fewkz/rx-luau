@@ -1,5 +1,5 @@
-local types = require(script.Parent.types)
-local newObservable = require(script.Parent.newObservable)
+local types = require("src/types")
+local newObservable = require("src/newObservable")
 
 type Observable<T> = types.Observable<T>
 type Operator<I, O> = types.Operator<I, O>

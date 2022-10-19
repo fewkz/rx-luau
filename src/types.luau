@@ -13,4 +13,4 @@ export type Observable<T> = {
 
 export type Operator<I, O> = (I) -> O
 
-return nil
+return {} -- Modules must return a table or function in luau

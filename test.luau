@@ -1,10 +1,11 @@
 --!strict
-local newObservable = require(script.Rx.newObservable)
-local pipe = require(script.Rx.pipe)
+local newObservable = require("src/newObservable")
+local pipe = require("src/pipe")
 
 local greeter = newObservable(function(subscriber)
 	subscriber.next("hello")
 	subscriber.next("goodbye")
+	return
 end)
 
 local function nameAdder(name)
@@ -20,7 +21,6 @@ nameGreet.subscribeNext(function(greeting)
 end)
 
 local letterCount = pipe(nameGreet, string.len)
-
 
 letterCount.subscribeNext(function(count)
 	print("The letter count of the greeting is " .. count)

@@ -1,4 +1,4 @@
-local types = require(script.Parent.types)
+local types = require("src/types")
 
 local noop = function() end
 
