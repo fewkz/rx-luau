@@ -124,16 +124,18 @@ end)
 local red = "\27[31m"
 local green = "\27[32m"
 local bold = "\27[1m"
-local nonBold = "\27[22m"
 local reset = "\27[0m"
 local underline = "\27[4m"
 
-print(`{bold}{green}{#passedTests} tests passed{nonBold}{underline}`)
 for _, passedTest in passedTests do
-	print(passedTest)
+	print(`{green}{underline}{passedTest}{reset}`)
 end
-print(`{reset}{bold}{red}{#failedTests} tests failed{reset}`)
 for _, failedTest in failedTests do
 	print(`{red}{underline}{failedTest.name}{reset}`)
 	print(failedTest.msg)
+end
+if #failedTests > 0 then
+	error(`{red}{bold}{#failedTests} tests failed{reset}`, 0)
+else
+	print(`{green}{bold}All tests passed!{reset}`)
 end
