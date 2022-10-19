@@ -15,12 +15,13 @@ end
 
 local nameGreet = pipe(greeter, nameAdder("fox"))
 
-nameGreet.subscribe(function(greeting)
+nameGreet.subscribeNext(function(greeting)
 	print("The greeting is " .. greeting)
 end)
 
 local letterCount = pipe(nameGreet, string.len)
 
-letterCount.subscribe(function(count)
+
+letterCount.subscribeNext(function(count)
 	print("The letter count of the greeting is " .. count)
 end)

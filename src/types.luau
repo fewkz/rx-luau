@@ -4,10 +4,11 @@ export type Observer<T> = {
 	complete: () -> ()?,
 }
 
-export type ObserverLike<T> = Observer<T> | ((T) -> ())
-
 export type Observable<T> = {
-	subscribe: (ObserverLike<T>) -> (() -> ()),
+	-- Due to a bug in Luau, subscribe and subscribeNext must be seperate functions
+	-- otherwise it will break the type of the pipe() function.
+	subscribe: (Observer<T>) -> (() -> ()),
+	subscribeNext: ((T) -> ()) -> (() -> ()),
 }
 
 export type Operator<I, O> = (I) -> O
