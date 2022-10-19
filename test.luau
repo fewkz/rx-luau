@@ -1,6 +1,7 @@
 local newObservable = require("src/newObservable")
 local pipe = require("src/pipe")
 local map = require("src/operators/map")
+local filter = require("src/operators/filter")
 
 local passedTests = {}
 local failedTests = {}
@@ -101,6 +102,23 @@ test("Piping an observable to map", function()
 	assert(values[1] == 2, "Expected 2, got " .. values[1])
 	assert(values[2] == 4, "Expected 4, got " .. values[2])
 	assert(values[3] == 6, "Expected 6, got " .. values[3])
+end)
+
+test("Piping an observable to filter", function()
+	local observable = newObservable(function(subscriber)
+		subscriber.next(1)
+		subscriber.next(2)
+		subscriber.next(3)
+		return
+	end)
+	local values = {}
+	pipe(observable, filter(function(value: number)
+		return value % 2 == 0
+	end)).subscribeNext(function(value)
+		table.insert(values, value)
+	end)
+	assert(#values == 1, "Expected 1 value, got " .. #values)
+	assert(values[1] == 2, "Expected 2, got " .. values[1])
 end)
 
 local red = "\27[31m"

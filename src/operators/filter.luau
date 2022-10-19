@@ -8,18 +8,20 @@ local function operate<I, O>(
 end
 
 --[=[
-	Returns an operator that maps values emitted from the
-	observable with the given `project` function.
+    Returns an operator that only emits values from the source
+    observable that pass the given `predicate` function.
 
-    @param project (value: I, index: number) -> (boolean)
-	@return (source: Observable<I>) -> Observable<O>
+    @param predicate (value: I, index: number) -> (boolean)
+    @return (source: Observable<I>) -> Observable<I>
 ]=]
-local function map<I, O>(project: (value: I, index: number) -> (O))
+function filter<I>(predicate: (value: I, index: number) -> (boolean))
 	local index = 1 -- We're in lua, which is one-indexed ;)
-	return operate(function(source: types.Observable<I>): types.Observable<O>
+	return operate(function(source: types.Observable<I>): types.Observable<I>
 		local observable = newObservable(function(sub)
 			local unsubscribe = source.subscribeNext(function(value)
-				sub.next(project(value, index))
+				if predicate(value, index) then
+					sub.next(value)
+				end
 				index += 1
 			end)
 			return unsubscribe
@@ -28,4 +30,4 @@ local function map<I, O>(project: (value: I, index: number) -> (O))
 	end)
 end
 
-return map
+return filter
