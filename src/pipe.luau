@@ -3,6 +3,7 @@ local types = require("src/types")
 type Observable<T> = types.Observable<T>
 type Operator<I, O> = types.Operator<I, O>
 
+-- This may seem stupid, but it's how rxjs does it! https://github.com/ReactiveX/rxjs/blob/afac3d574323333572987e043adcd0f8d4cff546/src/internal/Observable.ts#L348-L414
 type Pipe =
 	(<A>(self: Observable<A>) -> Observable<A>)
 	& (<A, B>(self: Observable<A>, op1: Operator<A, B>) -> Observable<B>)
